@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initHamburger();
   initGalleryModal();
-  initCopyAddress();
   initFAQ();
   initFadeIn();
 });
