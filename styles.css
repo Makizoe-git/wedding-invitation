@@ -1142,12 +1142,19 @@ body.locked {
 }
 
 .envelope-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   color: var(--color-accent-dark);
   font-family: var(--font-accent);
   font-size: 1.4rem;
-  margin-bottom: 40px;
+  z-index: 5;
+  /* In front of envelope flap */
   animation: fade-pulse 2s infinite;
+  pointer-events: none;
+  /* Let clicks pass through to envelope */
 }
 
 @keyframes fade-pulse {
