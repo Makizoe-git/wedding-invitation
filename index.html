@@ -22,13 +22,17 @@
 <body>
   <!-- ========== ENVELOPE OVERLAY ========== -->
   <div id="envelope-screen" class="envelope-screen">
+    <button id="audio-toggle-envelope" class="audio-toggle-btn" aria-label="BGMを切り替える">
+      <span class="audio-icon">🎶</span> BGM ON
+    </button>
+    <div class="envelope-message">
+      <p>Tap to Open</p>
+      <p style="font-size: 0.8em; margin-top: 4px;">แตะเพื่อเปิด</p>
+    </div>
     <div class="envelope-wrapper" id="envelope-wrapper">
       <div class="envelope">
         <div class="envelope-flap"></div>
-        <div class="envelope-letter">
-          <p>Tap to Open</p>
-          <p style="font-size: 0.8em; margin-top: 4px;">แตะเพื่อเปิด</p>
-        </div>
+        <div class="envelope-letter"></div>
         <div class="envelope-front"></div>
       </div>
     </div>
@@ -38,9 +42,14 @@
   <header id="header" class="header">
     <div class="header-inner">
       <a href="#hero" class="header-logo">Wedding Invitation</a>
-      <button class="hamburger" id="hamburger" aria-label="メニューを開く">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-actions">
+        <button id="audio-toggle-header" class="audio-toggle-btn header-audio-btn" aria-label="BGMを無くす">
+          <span class="audio-icon">🎶</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
       <nav class="nav" id="nav">
         <a href="#about">About</a>
         <a href="#details">Details</a>

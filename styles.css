@@ -200,6 +200,18 @@ ul {
   color: var(--color-text);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .nav {
   display: flex;
   gap: 28px;
@@ -1116,15 +1128,44 @@ body.locked {
   z-index: 9999;
   background-color: var(--color-bg);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: opacity 0.8s ease, visibility 0.8s;
+  padding-bottom: 50px;
 }
 
 .envelope-screen.is-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+.envelope-message {
+  text-align: center;
+  color: var(--color-accent-dark);
+  font-family: var(--font-accent);
+  font-size: 1.4rem;
+  margin-bottom: 40px;
+  animation: fade-pulse 2s infinite;
+}
+
+@keyframes fade-pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.envelope-screen.is-opening .envelope-message {
+  opacity: 0;
+  animation: none;
+  transition: opacity 0.4s ease;
 }
 
 .envelope-wrapper {
@@ -1151,11 +1192,17 @@ body.locked {
   animation: none;
 }
 
+/* 封筒のベースカラー（水色） */
+:root {
+  --env-bg: #dcebf7;
+  --env-flap: #e6f0fa;
+  --env-border: #c8dfef;
+}
+
 .envelope {
   position: absolute;
   inset: 0;
-  background: var(--color-highlight-bg);
-  /* inner color */
+  background: var(--env-bg);
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
@@ -1164,11 +1211,22 @@ body.locked {
   position: absolute;
   inset: 0;
   z-index: 3;
-  border-left: 150px solid rgba(255, 255, 255, 0.95);
-  border-right: 150px solid rgba(255, 255, 255, 0.95);
-  border-bottom: 100px solid #ffffff;
+  border-left: 150px solid var(--env-flap);
+  border-right: 150px solid var(--env-flap);
+  border-bottom: 100px solid var(--env-bg);
   border-top: 100px solid transparent;
   border-radius: 0 0 4px 4px;
+}
+
+.envelope-front::after {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  left: -150px;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-bottom: 100px solid var(--env-border);
+  z-index: -1;
 }
 
 .envelope-flap {
@@ -1177,7 +1235,7 @@ body.locked {
   left: 0;
   border-left: 150px solid transparent;
   border-right: 150px solid transparent;
-  border-top: 110px solid #ffffff;
+  border-top: 110px solid var(--env-bg);
   transform-origin: top;
   z-index: 4;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.2s;
@@ -1198,13 +1256,6 @@ body.locked {
   bottom: 10px;
   background: #fff;
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-accent-dark);
-  font-family: var(--font-accent);
-  font-size: 1.2rem;
   z-index: 1;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
@@ -1213,4 +1264,66 @@ body.locked {
 .envelope-screen.is-opening .envelope-letter {
   transform: translateY(-80px);
   z-index: 2;
+}
+
+/* ========================================
+   AUDIO CONTROLS
+   ======================================== */
+.audio-toggle-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.audio-toggle-btn.muted {
+  background: rgba(240, 244, 248, 0.8);
+  color: var(--color-text-light);
+  text-decoration: line-through;
+}
+
+.audio-toggle-btn:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#audio-toggle-envelope {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10;
+}
+
+/* ヘッダー内のオーディオボタン */
+.header-audio-btn {
+  padding: 6px 12px;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--color-white);
+  font-size: 1.1rem;
+  /* アイコンのみのため少し大きく */
+}
+
+.header.scrolled .header-audio-btn {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.header-audio-btn.muted {
+  opacity: 0.6;
+}
+
+.header-audio-btn .audio-icon {
+  font-size: 1.2rem;
 }

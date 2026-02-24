@@ -14,19 +14,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ---------- Envelope Animation & BGM ---------- */
+let isMuted = false;
+
 function initEnvelope() {
   const envelopeScreen = document.getElementById('envelope-screen');
   const envelopeWrapper = document.getElementById('envelope-wrapper');
   const bgm = document.getElementById('bgm');
+  const btnEnv = document.getElementById('audio-toggle-envelope');
+  const btnHeader = document.getElementById('audio-toggle-header');
 
   // Add locked class immediately just in case (though it's in HTML)
   document.body.classList.add('locked');
 
+  // Toggle Function
+  function toggleMute(e) {
+    if (e) e.stopPropagation();
+    isMuted = !isMuted;
+
+    if (bgm) {
+      bgm.muted = isMuted;
+    }
+
+    // Update UI
+    [btnEnv, btnHeader].forEach(btn => {
+      if (!btn) return;
+      if (isMuted) {
+        btn.classList.add('muted');
+        if (btn.id === 'audio-toggle-envelope') {
+          btn.innerHTML = '<span class="audio-icon">🔇</span> BGM OFF';
+        } else {
+          btn.innerHTML = '<span class="audio-icon">🔇</span>';
+        }
+      } else {
+        btn.classList.remove('muted');
+        if (btn.id === 'audio-toggle-envelope') {
+          btn.innerHTML = '<span class="audio-icon">🎶</span> BGM ON';
+        } else {
+          btn.innerHTML = '<span class="audio-icon">🎶</span>';
+        }
+      }
+    });
+  }
+
+  if (btnEnv) btnEnv.addEventListener('click', toggleMute);
+  if (btnHeader) btnHeader.addEventListener('click', toggleMute);
+
   if (!envelopeScreen || !envelopeWrapper) return;
 
   envelopeWrapper.addEventListener('click', () => {
-    // 1. Play BGM
-    if (bgm) {
+    // 1. Play BGM if not muted
+    if (bgm && !isMuted) {
+      bgm.muted = false;
       bgm.play().catch(error => {
         console.log("Audio play failed:", error);
       });
@@ -42,7 +80,7 @@ function initEnvelope() {
 
       // Optional: remove DOM element to clean up
       setTimeout(() => {
-        envelopeScreen.remove();
+        envelopeScreen.style.display = 'none';
       }, 800);
     }, 1200); // Wait 1.2s for flap and letter animations
   });
