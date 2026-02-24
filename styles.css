@@ -666,7 +666,7 @@ ul {
   /* 下側をより多く見せる */
 }
 
-/* Gallery Modal */
+/* Gallery Modal & QR Modal Base */
 .modal {
   display: none;
   position: fixed;
@@ -737,21 +737,24 @@ ul {
 /* QR Modal Specific Additions */
 .modal-content-qr {
   position: relative;
-  max-width: 90%;
+  width: 90%;
+  max-width: 500px;
+  height: auto;
   max-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px;
+  background: transparent;
+  padding: 0;
 }
 
 .qr-modal-img {
-  max-width: 100%;
-  max-height: 80vh;
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
   object-fit: contain;
   border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
 .qr-modal-close {
@@ -772,21 +775,52 @@ ul {
    RSVP
    ======================================== */
 
-
-.rsvp-lead {
+.rsvp-main {
   text-align: center;
-  color: var(--color-text-light);
-  margin-bottom: 40px;
-  font-size: 1rem;
-}
-
-/* Custom RSVP Form */
-.custom-rsvp-form {
-  max-width: 640px;
-  margin: 0 auto;
+  margin-bottom: 48px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-items: center;
+}
+
+.rsvp-main .btn {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.rsvp-note {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  margin-top: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.rsvp {
+  background-color: var(--color-bg);
+}
+
+.rsvp-main {
+  text-align: center;
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rsvp-main .btn {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.rsvp-note {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  margin-top: 16px;
+  text-align: center;
+  width: 100%;
 }
 
 .form-group {
@@ -990,7 +1024,7 @@ ul {
    ======================================== */
 .gift-section {
   text-align: center;
-  margin: 16px auto 0;
+  margin: 64px auto 0;
   padding: 48px 24px;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
