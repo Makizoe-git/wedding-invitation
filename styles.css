@@ -1056,6 +1056,30 @@ ul {
   font-size: 1.4rem;
 }
 
+.payslip-wrapper {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(201, 140, 140, 0.4);
+  text-align: left;
+}
+
+.payslip-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.payslip-label .label-sub {
+  font-size: 0.85em;
+  font-weight: normal;
+  color: var(--color-text-light);
+  display: inline-block;
+  margin-top: 4px;
+}
+
 /* ========================================
    FAQ
    ======================================== */

@@ -313,14 +313,7 @@
           <textarea id="rsvp-message" name="message" placeholder="回答を入力" rows="3"></textarea>
         </div>
 
-        <!-- PaySlip Upload -->
-        <div class="form-group">
-          <label for="rsvp-payslip">
-            （任意）お祝い金のお振込控え / (Optional) PaySlip<br>
-            <span class="label-sub">画像をアップロードしてください / กรุณาอัปโหลดรูปภาพ</span>
-          </label>
-          <input type="file" id="rsvp-payslip" name="payslip" accept="image/*" class="file-input">
-        </div>
+        <button type="submit" id="rsvp-submit-btn" class="btn btn-primary btn-submit">送信 / ส่ง</button>
 
         <!-- ========== QR CODE SECTION ========== -->
         <div class="gift-section">
@@ -329,9 +322,16 @@
           <button type="button" id="show-qr-btn" class="btn btn-gift">
             <span class="heart-icon">♡</span> CLICK TO QR CODE (พร้อมเพย์)
           </button>
-        </div>
 
-        <button type="submit" id="rsvp-submit-btn" class="btn btn-primary btn-submit">送信 / ส่ง</button>
+          <!-- PaySlip Upload (Moved under QR button) -->
+          <div class="payslip-wrapper">
+            <label for="rsvp-payslip" class="payslip-label">
+              （任意）お祝い金のお振込控え / (Optional) PaySlip<br>
+              <span class="label-sub">画像をアップロードしてください / กรุณาอัปโหลดรูปภาพ</span>
+            </label>
+            <input type="file" id="rsvp-payslip" name="payslip" accept="image/*" class="file-input">
+          </div>
+        </div>
       </form>
 
       <!-- Netlifyのデフォルトの成功画面ではなくこの画面を表示させる（JSでハンドリング） -->
