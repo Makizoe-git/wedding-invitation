@@ -4,6 +4,12 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 1. Force scroll to top on reload
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   initEnvelope();
   initHeader();
   initSmoothScroll();
@@ -11,7 +17,54 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryModal();
   initFAQ();
   initFadeIn();
+  initQRModal();
 });
+
+/* ---------- QR Modal ---------- */
+function initQRModal() {
+  const qrBtn = document.getElementById('show-qr-btn');
+  const qrModal = document.getElementById('qr-modal');
+  const qrClose = document.getElementById('qr-modal-close');
+
+  if (!qrBtn || !qrModal) return;
+
+  function openQRModal() {
+    qrModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeQRModal() {
+    qrModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  qrBtn.addEventListener('click', openQRModal);
+  if (qrClose) qrClose.addEventListener('click', closeQRModal);
+
+  qrModal.addEventListener('click', (e) => {
+    if (e.target === qrModal) closeQRModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && qrModal.classList.contains('active')) {
+      closeQRModal();
+    }
+  });
+}
+
+/* ---------- RSVP Form Success ---------- */
+window.showRSVPSuccess = function () {
+  const form = document.getElementById('custom-rsvp-form');
+  const successMsg = document.getElementById('rsvp-success-message');
+
+  if (form && successMsg) {
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+
+    // Smooth scroll to the success message
+    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+};
 
 /* ---------- Envelope Animation & BGM ---------- */
 let isMuted = false;

@@ -139,8 +139,8 @@
           <p class="detail-note">※白色の衣装はご遠慮ください<br>กรุณางดสวมชุดสีขาว</p>
         </div>
         <!-- 回答締切 -->
-        <a href="https://forms.gle/5UndwjrcG2Q7cXhh7" target="_blank" rel="noopener noreferrer"
-          class="detail-card detail-card-highlight" style="display: block; text-decoration: none; color: inherit;">
+        <a href="#rsvp" class="detail-card detail-card-highlight"
+          style="display: block; text-decoration: none; color: inherit;">
           <div class="detail-icon">⏰</div>
           <h3>回答締切 / RSVP By</h3>
           <p class="deadline-badge">2026年5月31日（日）<br><span style="font-weight: normal; font-size: 0.85em;">31 พฤษภาคม
@@ -259,14 +259,78 @@
       <p class="rsvp-lead">出欠のご回答をお願いいたします。<br>กรุณาตอบรับคำเชิญเพื่อร่วมงาน<br><br>回答締切 / RSVP
         By：<strong>2026年5月31日（日） / 31 พ.ค. 2026</strong></p>
 
-      <!-- 方式A: 外部フォームリンク -->
-      <div class="rsvp-main">
-        <a href="https://forms.gle/5UndwjrcG2Q7cXhh7" target="_blank" rel="noopener noreferrer"
-          class="btn btn-primary btn-large">
-          出欠回答フォームを開く<br><span style="font-size: 0.8em; font-weight: normal;">เปิดแบบฟอร์มตอบรับคำเชิญ (Google
-            Form)</span>
-        </a>
-        <p class="rsvp-note">※ 外部のGoogleフォームが開きます / เปิดลิงก์ไปยัง Google Form</p>
+      <!-- Hidden iframe for silent form submission -->
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+        onload="if(window.submitted) {showRSVPSuccess();}"></iframe>
+
+      <form
+        action="https://docs.google.com/forms/d/e/1FAIpQLSc7uam0NWKnwlE1Hf_hWkBF6rpjJK2pNmkmlv3iV1ZqoMEHIw/formResponse"
+        method="POST" target="hidden_iframe" id="custom-rsvp-form" class="custom-rsvp-form"
+        onsubmit="window.submitted=true; document.getElementById('rsvp-submit-btn').disabled = true; document.getElementById('rsvp-submit-btn').innerText = '送信中...';">
+        <!-- Name -->
+        <div class="form-group">
+          <label for="rsvp-name">お名前 / ชื่อ-นามสกุล <span class="required">*</span></label>
+          <input type="text" id="rsvp-name" name="entry.2005620554" placeholder="回答を入力" required>
+        </div>
+
+        <!-- Attendance -->
+        <div class="form-group">
+          <label>ご出欠 / การเข้าร่วม <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="entry.1045781291" value="出席" required>
+              <span class="radio-custom"></span> 出席
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="entry.1045781291" value="欠席" required>
+              <span class="radio-custom"></span> 欠席
+            </label>
+          </div>
+        </div>
+
+        <!-- Companions -->
+        <div class="form-group">
+          <label for="rsvp-companions">同伴者人数 / จำนวนผู้ติดตาม</label>
+          <div class="select-wrapper">
+            <select id="rsvp-companions" name="entry.1166974658">
+              <option value="" disabled selected>選択</option>
+              <option value="なし / ไม่มี">なし / ไม่มี</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label for="rsvp-message">
+            メッセージ / ข้อความ<br>
+            <span class="label-sub">新郎新婦へのメッセージをお願いします / ข้อความถึงเจ้าบ่าวและเจ้าสาว</span>
+          </label>
+          <textarea id="rsvp-message" name="entry.839337160" placeholder="回答を入力" rows="3"></textarea>
+        </div>
+
+        <button type="submit" id="rsvp-submit-btn" class="btn btn-primary btn-submit">送信 / ส่ง</button>
+      </form>
+
+      <div id="rsvp-success-message" class="rsvp-success-message" style="display: none;">
+        <p>ご回答ありがとうございました！<br>ขอบคุณสำหรับคำตอบของคุณ!</p>
+      </div>
+
+      <!-- ========== QR CODE SECTION ========== -->
+      <div class="gift-section">
+        <h3 class="gift-title">A Special Gift for the Couple 💝</h3>
+        <p class="gift-sub">ร่วมแสดงความยินดีด้วยการมอบของขวัญแด่<br>เจ้าบ่าวและเจ้าสาว 💝</p>
+        <button id="show-qr-btn" class="btn btn-gift">
+          <span class="heart-icon">♡</span> CLICK TO QR CODE (พร้อมเพย์)
+        </button>
       </div>
 
 
@@ -377,6 +441,13 @@
 
   <!-- ========== TOAST ========== -->
   <div class="toast" id="toast" aria-live="polite"></div>
+
+  <!-- ========== QR MODAL ========== -->
+  <div class="modal" id="qr-modal" role="dialog" aria-modal="true" aria-label="QR Code">
+    <button class="modal-close" id="qr-modal-close" aria-label="閉じる">&times;</button>
+    <img class="modal-image" id="qr-modal-image" src="assets/QR.jpeg" alt="QR Code"
+      style="max-height: 80vh; border-radius: 8px;">
+  </div>
 
   <!-- ========== BGM ========== -->
   <audio id="bgm" src="assets/bgm.mp3" loop preload="auto"></audio>
