@@ -781,12 +781,14 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .rsvp-main .btn {
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
+  display: inline-block;
+  max-width: 480px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .rsvp-note {
@@ -799,28 +801,6 @@ ul {
 
 .rsvp {
   background-color: var(--color-bg);
-}
-
-.rsvp-main {
-  text-align: center;
-  margin-bottom: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.rsvp-main .btn {
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-.rsvp-note {
-  font-size: 0.82rem;
-  color: var(--color-text-light);
-  margin-top: 16px;
-  text-align: center;
-  width: 100%;
 }
 
 .form-group {
